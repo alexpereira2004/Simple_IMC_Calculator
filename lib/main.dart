@@ -15,6 +15,35 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  TextEditingController weightController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+
+  String _infoText = "Informe seu peso e altura";
+
+  void _resetFields() {
+    setState(() {
+      weightController.text = "";
+      heightController.text = "";
+      _infoText = "Informe seu peso e altura";
+    });
+  }
+
+  void calculate() {
+    setState(() {
+      double weight = double.parse(weightController.text);
+      double height = double.parse(heightController.text) / 100;
+      var imc = weight / (height * height);
+      var imcAsPrecision = imc.toStringAsPrecision(4);
+      print(imcAsPrecision);
+      if (imc < 18.6) {
+        _infoText = "Abaixo do peso: ${imcAsPrecision}";
+      } else {
+        _infoText = "${imcAsPrecision}";
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +53,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.green,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: _resetFields,
             icon: Icon(Icons.refresh),
           )
         ],
@@ -40,30 +69,32 @@ class _HomeState extends State<Home> {
               size: 120,
               color: Colors.white,
             ),
-            const TextField(
+            TextField(
               keyboardType: TextInputType.number,
               cursorColor: Colors.white,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 25),
-              decoration: InputDecoration(
+              style: const TextStyle(color: Colors.white, fontSize: 25),
+              controller: weightController,
+              decoration: const InputDecoration(
                   labelText: "Peso (Kg)",
                   fillColor: Colors.white,
                   labelStyle: TextStyle(
                       color: Colors.white,
-                      fontSize: 35,
+                      fontSize: 25,
                       fontWeight: FontWeight.w700)),
             ),
-            const TextField(
+            TextField(
               keyboardType: TextInputType.number,
               cursorColor: Colors.white,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 25),
-              decoration: InputDecoration(
+              style: const TextStyle(color: Colors.white, fontSize: 25),
+              controller: heightController,
+              decoration: const InputDecoration(
                   labelText: "Altura (cm)",
                   fillColor: Colors.white,
                   labelStyle: TextStyle(
                       color: Colors.white,
-                      fontSize: 35,
+                      fontSize: 25,
                       fontWeight: FontWeight.w700)),
             ),
             Padding(
@@ -71,7 +102,7 @@ class _HomeState extends State<Home> {
               child: Container(
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: calculate,
                   style: ElevatedButton.styleFrom(primary: Colors.lightGreen),
                   child: const Text(
                     "Calcular",
@@ -83,8 +114,8 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            const Text(
-              "Info",
+            Text(
+              _infoText,
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 25),
             )
