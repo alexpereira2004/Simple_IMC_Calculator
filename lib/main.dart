@@ -66,16 +66,19 @@ class _HomeState extends State<Home> {
                       fontSize: 35,
                       fontWeight: FontWeight.w700)),
             ),
-            Container(
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(primary: Colors.lightGreen),
-                child: const Text(
-                  "Calcular",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(primary: Colors.lightGreen),
+                  child: const Text(
+                    "Calcular",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),
