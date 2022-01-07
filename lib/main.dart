@@ -19,6 +19,8 @@ class _HomeState extends State<Home> {
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
 
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   String _infoText = "Informe seu peso e altura";
 
   void _resetFields() {
@@ -61,65 +63,82 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.lime,
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Icon(
-              Icons.person,
-              size: 120,
-              color: Colors.white,
-            ),
-            TextField(
-              keyboardType: TextInputType.number,
-              cursorColor: Colors.white,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white, fontSize: 25),
-              controller: weightController,
-              decoration: const InputDecoration(
-                  labelText: "Peso (Kg)",
-                  fillColor: Colors.white,
-                  labelStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700)),
-            ),
-            TextField(
-              keyboardType: TextInputType.number,
-              cursorColor: Colors.white,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white, fontSize: 25),
-              controller: heightController,
-              decoration: const InputDecoration(
-                  labelText: "Altura (cm)",
-                  fillColor: Colors.white,
-                  labelStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700)),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: calculate,
-                  style: ElevatedButton.styleFrom(primary: Colors.lightGreen),
-                  child: const Text(
-                    "Calcular",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Icon(
+                Icons.person,
+                size: 120,
+                color: Colors.white,
+              ),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                cursorColor: Colors.white,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.white, fontSize: 25),
+                controller: weightController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Insira o seu peso";
+                  }
+                },
+                decoration: const InputDecoration(
+                    labelText: "Peso (Kg)",
+                    fillColor: Colors.white,
+                    labelStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700)),
+              ),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                cursorColor: Colors.white,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.white, fontSize: 25),
+                controller: heightController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Insira a sua altura";
+                  }
+                },
+                decoration: const InputDecoration(
+                    labelText: "Altura (cm)",
+                    fillColor: Colors.white,
+                    labelStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700)),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Container(
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        calculate();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(primary: Colors.lightGreen),
+                    child: const Text(
+                      "Calcular",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Text(
-              _infoText,
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            )
-          ],
+              Text(
+                _infoText,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 25),
+              )
+            ],
+          ),
         ),
       ),
     );
