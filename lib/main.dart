@@ -28,6 +28,7 @@ class _HomeState extends State<Home> {
       weightController.text = "";
       heightController.text = "";
       _infoText = "Informe seu peso e altura";
+      _formKey = GlobalKey<FormState>();
     });
   }
 
