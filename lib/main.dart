@@ -33,12 +33,12 @@ class _HomeState extends State<Home> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Icon(
+          const Icon(
             Icons.person,
             size: 120,
             color: Colors.white,
           ),
-          TextField(
+          const TextField(
             keyboardType: TextInputType.number,
             cursorColor: Colors.white,
             textAlign: TextAlign.center,
@@ -47,12 +47,11 @@ class _HomeState extends State<Home> {
                 labelText: "Peso (Kg)",
                 fillColor: Colors.white,
                 labelStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w700
-                )),
+                    color: Colors.white,
+                    fontSize: 35,
+                    fontWeight: FontWeight.w700)),
           ),
-          TextField(
+          const TextField(
             keyboardType: TextInputType.number,
             cursorColor: Colors.white,
             textAlign: TextAlign.center,
@@ -61,10 +60,28 @@ class _HomeState extends State<Home> {
                 labelText: "Altura (cm)",
                 fillColor: Colors.white,
                 labelStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 35,
+                    fontWeight: FontWeight.w700)),
+          ),
+          Container(
+            height: 50,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(primary: Colors.lightGreen),
+              child: const Text(
+                "Calcular",
+                style: TextStyle(
                   color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w700
-                )),
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
+          const Text(
+            "Info",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontSize: 25),
           )
         ],
       ),
