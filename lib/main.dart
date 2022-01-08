@@ -39,10 +39,20 @@ class _HomeState extends State<Home> {
       var imc = weight / (height * height);
       var imcAsPrecision = imc.toStringAsPrecision(4);
       print(imcAsPrecision);
-      if (imc < 18.6) {
+      if (imc < 17) {
+        _infoText = "Muito abaixo do peso: ${imcAsPrecision}";
+      } else if (imc < 18.5) {
         _infoText = "Abaixo do peso: ${imcAsPrecision}";
+      } else if (imc < 25) {
+        _infoText = "Peso normal: ${imcAsPrecision}";
+      } else if (imc < 30) {
+        _infoText = "Acima do peso: ${imcAsPrecision}";
+      } else if (imc < 35) {
+        _infoText = "Obesidade Grau I: ${imcAsPrecision}";
+      } else if (imc < 40) {
+        _infoText = "Obesidade Grau II: ${imcAsPrecision}";
       } else {
-        _infoText = "${imcAsPrecision}";
+        _infoText = "Obesidade Grau III: ${imcAsPrecision}";
       }
     });
   }
